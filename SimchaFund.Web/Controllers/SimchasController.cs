@@ -8,6 +8,10 @@ namespace SimchaFund.Web.Controllers
         private string _connectionString = @"Data Source=.\sqlexpress;Initial Catalog=SimchaFund;Integrated Security=true;TrustServerCertificate=true;";
         public IActionResult Index()
         {
+            if (TempData["Message"] != null)
+            {
+                ViewBag.Message = TempData["Message"];
+            }
             SimchaFundManager mgr = new SimchaFundManager(_connectionString);
             SimchasViewModel vm = new SimchasViewModel();
             vm.Simchas = mgr.GetSimchas();
@@ -33,6 +37,7 @@ namespace SimchaFund.Web.Controllers
                 });
             }
             mgr.AddContributions(contributions);
+            TempData["Message"] = "New simcha successfully added";
             return Redirect("/simchas/index");
         }
 
@@ -72,6 +77,7 @@ namespace SimchaFund.Web.Controllers
             }
             mgr.DeleteContributionsBySimcha(simchaId);
             mgr.AddContributions(contributions);
+            //TempData["Message"] = $"Simcha successfully updated";
             return Redirect($"/simchas/contributions?simchaId={simchaId}");
         }
     }

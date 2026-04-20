@@ -35,7 +35,7 @@ namespace SimchaFund.Web.Controllers
             SimchaFundManager mgr = new SimchaFundManager(_connectionString);
             deposit.ContributorId = mgr.AddContributor(contributor);
             mgr.AddDeposit(deposit);
-            TempData["Message"] = $"New Contributor Created! {contributor.Id} {contributor.FirstName} {contributor.LastName} {deposit.Amount}";
+            TempData["Message"] = $"{contributor.FirstName} {contributor.LastName} added as a new contributor";
             return RedirectToAction("Index");
         }
 
@@ -45,6 +45,7 @@ namespace SimchaFund.Web.Controllers
         {
             SimchaFundManager mgr = new SimchaFundManager(_connectionString);
             mgr.UpdateContributor(contributor);
+            TempData["Message"] = $"{contributor.FirstName} {contributor.LastName} successfully updated";
             return RedirectToAction("Index");
         }
 
@@ -66,6 +67,7 @@ namespace SimchaFund.Web.Controllers
         {
             SimchaFundManager mgr = new SimchaFundManager(_connectionString);
             mgr.AddDeposit(deposit);
+            TempData["Message"] = "Deposit succefully recorded";
             return RedirectToAction("Index");
         }
     }
