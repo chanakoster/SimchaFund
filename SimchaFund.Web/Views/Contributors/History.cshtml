@@ -1,0 +1,37 @@
+@using SimchaFund.Data
+@model HistoryViewModel
+
+<div class="header">
+    <h1>History for @Model.Contributor.FirstName @Model.Contributor.LastName</h1>
+    <h3>Current Balance: @Model.Contributor.Balance.ToString("C")</h3>
+</div>
+<div class="row header">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Action</th>
+                <th>Date</th>
+                <th>Amount</th>
+            </tr>
+            @foreach (Transaction transaction in Model.Transactions)
+            {
+                 <tr>
+                <td>
+                    @transaction.TransactionMemo
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @transaction.Date.ToString("D")
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @transaction.Amount.ToString("C")
+                </td>
+            </tr>
+            }
+            
+        </table>
+    </div>
+</div>
+
+<div style="text-align:center;">
+    <a class="btn btn-lg btn-danger" href="/contributors">Back to Contributors</a>
+</div>
